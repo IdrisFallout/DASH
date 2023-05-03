@@ -7,8 +7,8 @@ import re
 app = FastAPI()
 is_starting = True
 
-server_url = 'http://127.0.0.1:5000'
-input_file = r'C:\Users\HP\OneDrive\My Edits\Domino.mp4'
+server_url = 'http://bdc2-102-166-14-118.ngrok-free.app'
+input_file = r'E:\Videos\MKSU Portal.mp4'
 output_folder = 'output'
 
 
@@ -21,17 +21,22 @@ def generate_dash():
             if file.endswith(".mpd") or file.endswith(".m4s"):
                 os.remove(os.path.join(output_folder, file))
 
-        # Generate DASH segments from the video using ffmpeg
-        subprocess.call([
-            'ffmpeg', '-i', input_file, '-c:a', 'copy', '-c:v', 'h264', '-preset', 'fast',
-            '-crf', '20', '-sc_threshold', '0', '-g', '48', '-keyint_min', '48',
-            '-hls_playlist', '0', '-f', 'dash', f'{output_folder}/video.mpd'
-        ])
+        # # Generate DASH segments from the video using ffmpeg
+        # subprocess.call([
+        #     'ffmpeg', '-i', input_file, '-c:a', 'copy', '-c:v', 'h264', '-preset', 'fast',
+        #     '-crf', '20', '-sc_threshold', '0', '-g', '48', '-keyint_min', '48',
+        #     '-hls_playlist', '0', '-f', 'dash', f'{output_folder}/video.mpd'
+        # ])
+        subprocess.call(
+            ['ffmpeg', '-i', input_file, '-c:a', 'copy', '-c:v', 'h264', '-preset', 'fast', '-sc_threshold', '0', '-g',
+             '48', '-keyint_min', '48', '-hls_playlist', '0', '-f', 'dash', '-b:v:0', '6000k', '-b:v:1', '3000k',
+             '-b:v:2', '1500k', '-b:v:3', '750k', '-profile:v', 'high', '-level:v', '4.2',
+             f'{output_folder}/video.mpd'])
 
         is_starting = False
 
 
-generate_dash()
+# generate_dash()
 
 
 @app.get('/dash')
