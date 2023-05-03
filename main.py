@@ -7,7 +7,7 @@ import re
 app = FastAPI()
 is_starting = True
 
-server_url = 'https://DASH.onrender.com'
+server_url = 'https://dash-zdvi.onrender.com'
 input_file = r'storage/dance-monkey.mp4'
 output_folder = 'output'
 
