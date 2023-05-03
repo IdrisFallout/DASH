@@ -7,8 +7,8 @@ import re
 app = FastAPI()
 is_starting = True
 
-server_url = 'http://bdc2-102-166-14-118.ngrok-free.app'
-input_file = r'E:\Videos\MKSU Portal.mp4'
+server_url = 'https://DASH.onrender.com'
+input_file = r'storage/dance-monkey.mp4'
 output_folder = 'output'
 
 
@@ -21,22 +21,27 @@ def generate_dash():
             if file.endswith(".mpd") or file.endswith(".m4s"):
                 os.remove(os.path.join(output_folder, file))
 
-        # # Generate DASH segments from the video using ffmpeg
-        # subprocess.call([
-        #     'ffmpeg', '-i', input_file, '-c:a', 'copy', '-c:v', 'h264', '-preset', 'fast',
-        #     '-crf', '20', '-sc_threshold', '0', '-g', '48', '-keyint_min', '48',
-        #     '-hls_playlist', '0', '-f', 'dash', f'{output_folder}/video.mpd'
-        # ])
-        subprocess.call(
-            ['ffmpeg', '-i', input_file, '-c:a', 'copy', '-c:v', 'h264', '-preset', 'fast', '-sc_threshold', '0', '-g',
-             '48', '-keyint_min', '48', '-hls_playlist', '0', '-f', 'dash', '-b:v:0', '6000k', '-b:v:1', '3000k',
-             '-b:v:2', '1500k', '-b:v:3', '750k', '-profile:v', 'high', '-level:v', '4.2',
-             f'{output_folder}/video.mpd'])
+        # Generate DASH segments from the video using ffmpeg
+        subprocess.call([
+            'ffmpeg', '-i', input_file, '-b:v', '235k', f'{output_folder}/video 235kbps.mp4', '-b:v', '1050k',
+            f'{output_folder}/video 1050kbps.mp4', '-b:v', '4300k', f'{output_folder}/video 4300kbps.mp4'
+        ])
+
+        subprocess.call([
+            'ffmpeg', '-i', f'{output_folder}/video 235kbps.mp4', '-i', f'{output_folder}/video 1050kbps.mp4',
+            '-i', f'{output_folder}/video 4300kbps.mp4', '-map', '0:v', '-map', '0:a', '-map', '1:v', '-map', '1:a',
+            '-map', '2:v', '-map', '2:a', '-c:v', 'libx264', '-b:v:0', '235k', '-c:v:1', 'libx264', '-b:v:1', '1050k',
+            '-c:v:2', 'libx264', '-b:v:2', '4300k', '-c:a', 'aac', '-f', 'dash', f'{output_folder}/video.mpd'
+        ])
+
+        for file in os.listdir(output_folder):
+            if file.endswith(".mp4"):
+                os.remove(os.path.join(output_folder, file))
 
         is_starting = False
 
 
-# generate_dash()
+generate_dash()
 
 
 @app.get('/dash')
@@ -75,6 +80,6 @@ async def get_index():
 
 @app.get("/video")
 async def get_video():
-    with open("D:\Multimedia\Shrek The Third (2007) [1080p]\Shrek.The.Third.2007.1080p.HDDVD.x264.YIFY.mp4", "rb") as f:
+    with open("storage/dance-monkey.mp4", "rb") as f:
         content = f.read()
     return Response(content=content, media_type="video/mp4")
