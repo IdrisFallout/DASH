@@ -6,6 +6,10 @@ DASH is the secret sauce behind the success of video streaming services like Net
 To set up the project, you need to follow the following steps:
 1. Clone the repository
 2. Install the requirements(`pip install -r requirements.txt`)
+3. If you want to generate the DASH segments each time you start the server uncomment this line in [main.py](main.py):
+```python
+# generate_dash()
+```
 3. Run `uvicorn main:app --host 0.0.0.0 --port 5000` to start the FastAPI server
 
 ## Usage
