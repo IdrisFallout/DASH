@@ -1,5 +1,5 @@
 # DASH
-Dynamic Adaptive Streaming over HTTP (DASH) is a standard for streaming video over the Internet. DASH is an adaptive bitrate streaming technique that enables high quality streaming of media content over the Internet delivered from conventional HTTP web servers. Similar to Apple's [HTTP Live Streaming](https://dash-zdvi.onrender.com) (HLS) solution, MPEG-DASH works by breaking the content into a sequence of small HTTP-based file segments, each segment containing a short interval of playback time of content that is potentially many hours in duration, such as a movie or the live broadcast of a sports event.
+Dynamic Adaptive Streaming over HTTP (DASH) is a standard for streaming video over the Internet. DASH is an adaptive bitrate streaming technique that enables high quality streaming of media content over the Internet delivered from conventional HTTP web servers. Similar to Apple's [HTTP Live Streaming](github.com/IdrisFallout/HttpLiveStreaming) (HLS) solution, MPEG-DASH works by breaking the content into a sequence of small HTTP-based file segments, each segment containing a short interval of playback time of content that is potentially many hours in duration, such as a movie or the live broadcast of a sports event.
 DASH is the secret sauce behind the success of video streaming services like Netflix and YouTube.
 
 ## Installation
