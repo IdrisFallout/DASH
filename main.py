@@ -34,6 +34,12 @@ def generate_dash():
             '-c:v:2', 'libx264', '-b:v:2', '4300k', '-c:a', 'aac', '-f', 'dash', f'{output_folder}/video.mpd'
         ])
 
+        # subprocess.call([
+        #     'ffmpeg', '-i', input_file, '-c:a', 'copy', '-c:v', 'h264', '-preset', 'fast',
+        #     '-crf', '20', '-sc_threshold', '0', '-g', '48', '-keyint_min', '48',
+        #     '-hls_playlist', '0', '-f', 'dash', f'{output_folder}/video.mpd'
+        # ])
+
         for file in os.listdir(output_folder):
             if file.endswith(".mp4"):
                 os.remove(os.path.join(output_folder, file))
