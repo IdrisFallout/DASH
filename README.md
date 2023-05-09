@@ -7,6 +7,7 @@ To set up the project, you need to follow the following steps:
 1. Clone the repository
 2. Install the requirements(`pip install -r requirements.txt`)
 3. If you want to generate the DASH segments each time you start the server uncomment this line in [main.py](main.py):
+4. 
 ```python
 # generate_dash()
 ```
