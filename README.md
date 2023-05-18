@@ -12,6 +12,7 @@ To set up the project, you need to follow the following steps:
 # generate_dash()
 ```
 3. Run `uvicorn main:app --host 0.0.0.0 --port 5000` to start the FastAPI server
+
 ## Usage
 The API has 2 major endpoints:
 1.  '/' :- serves the dash player
